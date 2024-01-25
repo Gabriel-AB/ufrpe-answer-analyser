@@ -2,13 +2,13 @@ import { ReactNode } from "react";
 
 export default function Home() {
   return (
-    <main className="flex flex-col h-dvh gap-8 items-center justify-center">
+    <>
       <div className="flex flex-wrap gap-8 items-center justify-center w-full">
         <Question />
         <Answer />
       </div>
       <Button>Avaliar</Button>
-    </main>
+    </>
   );
 }
 
