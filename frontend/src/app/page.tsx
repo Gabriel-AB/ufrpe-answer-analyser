@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import Button from "@/components/button";
 
 export default function Home() {
   return (
@@ -12,9 +12,6 @@ export default function Home() {
   );
 }
 
-function Button({children, ...props}: {children: ReactNode}) {
-  return <button children={children} {...props} className="bg-zinc-200 rounded-lg py-2 px-4 shadow-lg shadow-zinc-400 hover:bg-zinc-300 active:bg-zinc-400 active:translate-y-px"/>
-}
 
 function Answer() {
   return <div className="flex flex-col relative w-96 border-zinc-300 shadow-lg shadow-zinc-400 rounded-lg overflow-y-auto">
