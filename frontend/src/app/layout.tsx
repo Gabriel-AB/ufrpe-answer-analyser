@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { twMerge } from "tailwind-merge";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={twMerge(inter.className, "bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100")}>
         <main className="flex flex-col h-dvh gap-8 items-center justify-center">
           {children}
         </main>
