@@ -1,0 +1,6 @@
+*
+!app/
+!scripts/
+!requirements/
+!keyfile.json
+!.env

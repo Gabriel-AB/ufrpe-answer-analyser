@@ -1,0 +1,73 @@
+x-qa-common: &qa-common
+  environment: &qa-common-env
+    DJANGO_ENVIRONMENT_NAME: ${DJANGO_ENVIRONMENT_NAME:-dev}
+    DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-SECRET_KEY}
+    DJANGO_LOG_LEVEL: ${DJANGO_LOG_LEVEL:-INFO}
+    DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings}
+    DJANGO_APP_DOMAIN: ${DJANGO_APP_DOMAIN:-http://localhost:8000}
+    DJANGO_FILE_UPLOAD_STORAGE: ${DJANGO_FILE_UPLOAD_STORAGE:-minio}
+    DATABASE_ENGINE: ${DATABASE_ENGINE:-django.db.backends.postgresql}
+    DATABASE_NAME: ${DATABASE_NAME:-qa-backend-db}
+    DATABASE_USER: ${DATABASE_USER:-qa-backend-user}
+    DATABASE_PASSWORD: ${DATABASE_PASSWORD:-supersecretpassword}
+    DATABASE_HOST: ${DATABASE_HOST:-db}
+    DATABASE_PORT: ${DATABASE_PORT:-5432}
+    DEBUG: ${DEBUG:-1}
+    MINIO_ENDPOINT: ${MINIO_ENDPOINT:-api.minio.incognita.com.br}
+    MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioaccesskey}
+    MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-miniosecretkey}
+    MINIO_USE_SSL: ${MINIO_USE_SSL:-1}
+    MINIO_DEFAULT_ACL: ${MINIO_DEFAULT_ACL:-public-read}
+    MINIO_AUDIO_BUCKET_NAME: ${MINIO_AUDIO_BUCKET_NAME:-audios}
+    MINIO_PRESIGNED_EXPIRY: ${MINIO_PRESIGNED_EXPIRY:-3600}
+
+services:
+  app:
+    <<: *qa-common
+    build:
+      context: ./backend
+      args:
+        - DEV=true
+    container_name: app
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend:/code/backend
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14.10-alpine3.19
+    environment:
+      POSTGRES_USER: qa-backend-user
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: qa-backend-db
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: supersecretpassword
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - minio-storage:/data
+    command: server --console-address ":9001" /data
+
+volumes:
+  db-data:
+  minio-storage:
