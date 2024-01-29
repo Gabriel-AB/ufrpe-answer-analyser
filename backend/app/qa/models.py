@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+
+class Question(models.Model):
+    content = models.TextField(max_length=2000)
+    topic = models.TextField(max_length=250)
+    answer = models.TextField(max_length=2000)
