@@ -15,17 +15,26 @@ export default async function Page() {
 
   return (
     <>
-      <div className="">
-        <span className="bg-lime-600">Pergunta:</span>
-        {question}
-      </div>
-      <div>
-        <span className="bg-teal-600">Resposta:</span>
-        {answer}
-      </div>
-      <Card className="items-center justify-center">
+      <Card>
+        <span className="bg-lime-600 text-center py-2 font-bold">Pergunta:</span>
+        <span className="p-4">
+          {question}
+        </span>
+      </Card>
+      <Card>
+        <span className="bg-teal-600 text-center py-2 font-bold">Resposta:</span>
+        <span className="p-4">
+          {answer}
+        </span>
+      </Card>
+      <Card className="items-center justify-center rounded-full size-64 bg-gradient-to-b from-fuchsia-400 to-indigo-500 font-bold text-lg text-white dark:from-fuchsia-800 dark:to-indigo-800">
         {/* Sua resposta tem nota {JSON.stringify(response)} */}
-        Sua resposta tem nota 5
+        <span className="px-8 text-center">
+          Sua resposta tem nota
+        </span>
+        <span className="text-9xl">
+          5
+        </span>
       </Card>
     </>
   )
