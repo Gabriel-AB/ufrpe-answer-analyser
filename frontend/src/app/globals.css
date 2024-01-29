@@ -7,3 +7,19 @@
     text-wrap: balance;
   }
 }
+
+@keyframes inflate {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(3) translateY(-10em);
+    opacity: 0;
+  }
+}
+
+@layer components {
+  .animate-explode {
+    animation: inflate 1s linear infinite;
+  }
+}
