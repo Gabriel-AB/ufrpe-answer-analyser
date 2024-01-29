@@ -7,7 +7,7 @@ export default async function Page({ searchParams }: { searchParams: { question:
     <>
       <div className="flex items-center justify-center relative">
         <span className="absolute z-10 size-64 animate-spin rounded-full bg-gradient-to-b from-blue-300 to-blue-700"/>
-        <span className="absolute z-20">Carregando</span>
+        <span className="absolute z-20 font-bold text-lg text-white">Carregando</span>
       </div>
     </>
   )

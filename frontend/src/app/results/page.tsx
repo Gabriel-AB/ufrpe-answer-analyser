@@ -27,7 +27,7 @@ export default async function Page() {
           {answer}
         </span>
       </Card>
-      <Card tabIndex={0} className="items-center justify-center rounded-full size-64 bg-gradient-to-b from-fuchsia-400 to-indigo-500 font-bold text-lg text-white dark:from-fuchsia-800 dark:to-indigo-800 focus:animate-explode">
+      <Card tabIndex={0} className="items-center justify-center rounded-full size-64 bg-gradient-to-b from-fuchsia-400 to-indigo-800 font-bold text-lg text-white dark:from-fuchsia-800 dark:to-indigo-800 focus:animate-explode">
         <span className="px-8 text-center">
           Sua resposta tem nota
         </span>

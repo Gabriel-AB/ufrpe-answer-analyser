@@ -1,6 +1,6 @@
 import Button from "@/components/button";
 import Card from "@/components/card";
-import { ComponentProps, ReactNode } from "react";
+import { ComponentProps } from "react";
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation";
 
@@ -28,7 +28,7 @@ export default function Home() {
 
 function Answer({ title = "Resposta", ...props }: ComponentProps<"textarea">) {
   return <Card className="resize-y">
-    <div className="absolute top-0 w-[96%] p-2 backdrop-blur">
+    <div className="absolute top-0 w-full backdrop-blur bg-teal-600/60 text-center py-2 font-bold">
       Resposta:
     </div>
     <textarea title={title} {...props} className="pt-12 p-2 min-h-full bg-inherit resize-none overflow-visible outline-none shadow-none" />
@@ -37,7 +37,7 @@ function Answer({ title = "Resposta", ...props }: ComponentProps<"textarea">) {
 
 function Question({ children, name }: { children: string, name?: string }) {
   return <Card>
-    <div className="sticky top-0 p-2 w-full backdrop-blur">
+    <div className="sticky top-0 w-full backdrop-blur bg-lime-600/60 text-center py-2 font-bold">
       Pergunta:
     </div>
     <span className="p-2">
