@@ -16,25 +16,25 @@ export default async function Page() {
   return (
     <>
       <Card>
-        <span className="bg-lime-600 text-center py-2 font-bold">Pergunta:</span>
-        <span className="p-4">
+        <Card.Header className="bg-lime-600">Pergunta:</Card.Header>
+        <span className="p-4 text-justify overflow-y-auto">
           {question}
         </span>
       </Card>
       <Card>
-        <span className="bg-teal-600 text-center py-2 font-bold">Resposta:</span>
-        <span className="p-4">
+        <Card.Header className="bg-teal-600">Resposta:</Card.Header>
+        <span className="p-4 text-justify overflow-y-auto">
           {answer}
         </span>
       </Card>
-      <Card tabIndex={0} className="items-center justify-center rounded-full size-64 bg-gradient-to-b from-fuchsia-400 to-indigo-800 font-bold text-lg text-white dark:from-fuchsia-800 dark:to-indigo-800 focus:animate-explode">
+      <div tabIndex={0} className="flex flex-col items-center justify-center rounded-full size-64 bg-gradient-to-b from-fuchsia-400 to-indigo-800 font-bold text-lg text-white dark:from-fuchsia-800 dark:to-indigo-800 focus:animate-explode">
         <span className="px-8 text-center">
           Sua resposta tem nota
         </span>
         <span className="text-9xl">
           5
         </span>
-      </Card>
+      </div>
     </>
   )
 }
