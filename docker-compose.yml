@@ -13,13 +13,6 @@ x-qa-common: &qa-common
     DATABASE_HOST: ${DATABASE_HOST:-db}
     DATABASE_PORT: ${DATABASE_PORT:-5432}
     DEBUG: ${DEBUG:-1}
-    MINIO_ENDPOINT: ${MINIO_ENDPOINT:-api.minio.incognita.com.br}
-    MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioaccesskey}
-    MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-miniosecretkey}
-    MINIO_USE_SSL: ${MINIO_USE_SSL:-1}
-    MINIO_DEFAULT_ACL: ${MINIO_DEFAULT_ACL:-public-read}
-    MINIO_AUDIO_BUCKET_NAME: ${MINIO_AUDIO_BUCKET_NAME:-audios}
-    MINIO_PRESIGNED_EXPIRY: ${MINIO_PRESIGNED_EXPIRY:-3600}
 
 services:
   app:
@@ -56,18 +49,5 @@ services:
       - db-data:/var/lib/postgresql/data/pgdata
     restart: unless-stopped
 
-  minio:
-    image: minio/minio
-    environment:
-      MINIO_ROOT_USER: admin
-      MINIO_ROOT_PASSWORD: supersecretpassword
-    ports:
-      - 9000:9000
-      - 9001:9001
-    volumes:
-      - minio-storage:/data
-    command: server --console-address ":9001" /data
-
 volumes:
   db-data:
-  minio-storage:
