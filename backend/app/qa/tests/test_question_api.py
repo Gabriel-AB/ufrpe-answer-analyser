@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 QUESTIONS_URL = reverse("qa:question-list")
+SELECT_QUESTION_URL = reverse("qa:select-question")
 
 
 def create_user(email="user@email.com", password="user_password"):
@@ -104,3 +105,18 @@ class PrivateQuestionApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(models.Question.objects.filter(id=question.id).exists())
+
+    def test_select_random_question(self):
+        """Test selecting random question."""
+        create_question()
+        create_question()
+
+        self.assertTrue(len(models.Question.objects.all()), 2)
+
+        res_a = self.client.get(SELECT_QUESTION_URL)
+        res_b = self.client.get(SELECT_QUESTION_URL)
+
+        self.assertEqual(res_a.status_code, status.HTTP_200_OK)
+        self.assertEqual(res_b.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(res_a.data["id"], res_b.data["id"])
