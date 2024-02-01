@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
@@ -7,6 +9,7 @@ from rest_framework.test import APIClient
 
 QUESTIONS_URL = reverse("qa:question-list")
 SELECT_QUESTION_URL = reverse("qa:select-question")
+SCORE_QUESTION_URL = reverse("qa:score-answer")
 
 
 def create_user(email="user@email.com", password="user_password"):
@@ -120,3 +123,29 @@ class PrivateQuestionApiTests(TestCase):
         self.assertEqual(res_b.status_code, status.HTTP_200_OK)
 
         self.assertEqual(res_a.data["id"], res_b.data["id"])
+
+    def test_score_answer(self):
+        """Test scoring answer."""
+        question = "What are the characteristics of a mammal?"
+        answer = ("There are four characteristics of mammals. "
+                  "First they have mammary glands, second they"
+                  " have a neocortex region of the brain, third "
+                  "they have fur or hair and fourth they have three "
+                  "middle ear bones.")
+        topic = "Biology"
+        create_question(
+            {
+                "content": question,
+                "answer": answer,
+                "topic": topic,
+            }
+        )
+
+        payload = json.dumps({
+            "question": question,
+            "answer": answer
+        })
+        res = self.client.post(SCORE_QUESTION_URL, data=payload, content_type="application/json")
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data["score"], 5)

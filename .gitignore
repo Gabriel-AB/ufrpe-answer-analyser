@@ -194,5 +194,6 @@ pyrightconfig.json
 
 ### This project ###
 data/
+models/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python

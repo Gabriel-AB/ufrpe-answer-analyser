@@ -1,6 +1,7 @@
 import random
 
-from qa import models, serializers
+from qa import models, serializers, services
+from rest_framework import serializers as rest_framework_serializers
 from rest_framework import status, views, viewsets
 from rest_framework.response import Response
 
@@ -49,3 +50,19 @@ class QuestionRandomSelectionApiView(views.APIView):
 
         serializer = serializers.QuestionDetailSerializer(question)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class OpenQuestionScoringApiView(views.APIView):
+    class InputSerializer(rest_framework_serializers.Serializer):
+        question = rest_framework_serializers.CharField()
+        answer = rest_framework_serializers.CharField()
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        service = services.OpenQuestionScoringService()
+        score = service.score(
+            question=serializer.validated_data["question"],
+            answer=serializer.validated_data["answer"]
+        )
+        return Response(data={"score": score}, status=status.HTTP_200_OK)

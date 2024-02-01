@@ -14,4 +14,5 @@ urlpatterns = [
         views.QuestionRandomSelectionApiView.as_view(),
         name="select-question",
     ),
+    path("score/", views.OpenQuestionScoringApiView.as_view(), name="score-answer"),
 ]
