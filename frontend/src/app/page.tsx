@@ -1,24 +1,43 @@
+import { QA, setCookies } from "@/actions/question-cookies";
 import Button from "@/components/button";
 import Card from "@/components/card";
-import { ComponentProps } from "react";
-import { cookies } from "next/headers"
 import { redirect } from "next/navigation";
 
+import { ComponentProps } from "react";
 
+type Question = {
+  id: number
+  topic: string
+  content: string
+  answer: string
+};
 
-export default function Home() {
+export default async function Home({searchParams}: {searchParams: {q?: number}}) {
+  if (!searchParams.q) {
+    const qa = await fetch(`${process.env.BACKEND}/api/qa/select/`, {cache: "no-cache"}).then(r => r.json()) as Question;
+    const newSearchParams = new URLSearchParams({q: qa.id} as any)
+    redirect("/?" + newSearchParams.toString());
+  }
+
+  const q = Number(searchParams.q);
+
+  if (Number.isNaN(q)) {
+    return <div className="font-bold text-6xl">URL Inválida</div>;
+  }
+
+  const question = await fetch(`${process.env.BACKEND}/api/qa/questions/${q}/`).then(r => r.json()) as Question;
+
   async function action(formData: FormData) {
-    "use server";
-    const c = cookies();
-    c.set("question", formData.get("question") as string);
-    c.set("answer", formData.get("answer") as string);
-    return redirect("/results");
+    "use server"
+    setCookies(Object.fromEntries(formData.entries()) as QA)
+    redirect("/results");
   }
   return (
     <>
       <form  action={action} id="answer-form" className="flex flex-wrap gap-8 items-center justify-center w-full justify-items-stretch">
-        <Question name="question">Lorem ipsum dLorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tincidunt ipsum. Maecenas mattis vestibulum condimentum. Curabitur vitae tortor molestie, varius turpis pellentesque, efficitur nibh. Praesent euismod ullamcorper finibus. Etiam in nulla euismod, sodales lectus quis, hendrerit lacus.
-olor sit amet, consectetur adipiscing elit. Nullam at tincidunt ipsum. Maecenas mattis vestibulum condimentum. Curabitur vitae tortor molestie, varius turpis pellentesque, efficitur nibh. Praesent euismod ullamcorper finibus. Etiam in nulla euismod, sodales lectus quis, hendrerit lacus.</Question>
+        <Question name="question">
+          {question.content}
+        </Question>
         <Answer name="answer" />
       </form>
       <Button form="answer-form">Avaliar</Button>

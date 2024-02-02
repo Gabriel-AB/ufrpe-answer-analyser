@@ -40,6 +40,8 @@ WORKDIR /code/backend/app
 # Copy the application files
 COPY ./app /code/backend/app
 COPY ./scripts /code/backend/scripts
+COPY ./data /code/backend/data
+COPY ./models /code/backend/models
 
 # Make API scripts executable
 RUN chmod +x /code/backend/scripts/*
