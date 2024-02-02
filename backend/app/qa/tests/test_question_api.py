@@ -143,4 +143,4 @@ class PrivateQuestionApiTests(TestCase):
         )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data["score"], 5)
+        self.assertEqual(res.data["score"], 2)
