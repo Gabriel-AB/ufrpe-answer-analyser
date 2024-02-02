@@ -36,7 +36,7 @@ services:
   frontend:
     build: ./frontend
     environment:
-      - BACKEND=http://backend:8000
+      - BACKEND=http://app:8000
     container_name: frontend
     # restart: always
     depends_on:

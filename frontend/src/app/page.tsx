@@ -14,7 +14,12 @@ type Question = {
 
 export default async function Home({searchParams}: {searchParams: {q?: number}}) {
   if (!searchParams.q) {
-    const qa = await fetch(`${process.env.BACKEND}/api/qa/select/`, {cache: "no-cache"}).then(r => r.json()) as Question;
+    const qa = await fetch(`${process.env.BACKEND}/api/qa/select/`, {cache: "no-cache"})
+      .then(r => r.json())
+      .catch(r => {
+        console.log(r);
+        return {id: 23, topic: "Topic", content: "Question", answer: "Answer"}
+      }) as Question;
     const newSearchParams = new URLSearchParams({q: qa.id} as any)
     redirect("/?" + newSearchParams.toString());
   }
@@ -25,7 +30,12 @@ export default async function Home({searchParams}: {searchParams: {q?: number}})
     return <div className="font-bold text-6xl">URL Inválida</div>;
   }
 
-  const question = await fetch(`${process.env.BACKEND}/api/qa/questions/${q}/`).then(r => r.json()) as Question;
+  const question = await fetch(`${process.env.BACKEND}/api/qa/questions/${q}/`)
+    .then(r => r.json())
+    .catch(r => {
+      console.error(r)
+      return {content: "Não foi possível obter a pergunta..."}
+    }) as Question;
 
   async function action(formData: FormData) {
     "use server"
