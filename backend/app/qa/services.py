@@ -12,7 +12,7 @@ class OpenQuestionScoringService:
         self.scorer = self._load_scorer()
 
     def _load_scorer(self):
-        scorer = joblib.load("/code/backend/models/svm_ovr_model.pkl")
+        scorer = joblib.load("/code/backend/models/dtc_model.pkl")
         return scorer
 
     def _load_model(self, model_ckpt: str):

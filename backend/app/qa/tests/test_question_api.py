@@ -126,12 +126,8 @@ class PrivateQuestionApiTests(TestCase):
 
     def test_score_answer(self):
         """Test scoring answer."""
-        question = "What are the characteristics of a mammal?"
-        answer = ("There are four characteristics of mammals. "
-                  "First they have mammary glands, second they"
-                  " have a neocortex region of the brain, third "
-                  "they have fur or hair and fourth they have three "
-                  "middle ear bones.")
+        question = "How does the human circulatory system work?"
+        answer = "The circulatory system is basically a loop of blood throughout our body. The heart pumps oxygen filled blood through our body where the cells take out the oxygen out of the blood. Then the oxygen low blood comes back to the heart, gets pumped into the lungs where it gets filled with oxygen again. Then the cycle repeats."
         topic = "Biology"
         create_question(
             {
@@ -141,11 +137,10 @@ class PrivateQuestionApiTests(TestCase):
             }
         )
 
-        payload = json.dumps({
-            "question": question,
-            "answer": answer
-        })
-        res = self.client.post(SCORE_QUESTION_URL, data=payload, content_type="application/json")
+        payload = json.dumps({"question": question, "answer": answer})
+        res = self.client.post(
+            SCORE_QUESTION_URL, data=payload, content_type="application/json"
+        )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data["score"], 5)
