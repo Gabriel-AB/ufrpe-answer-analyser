@@ -1,4 +1,4 @@
-# Pontuador Automático de Respostas Abertas
+# Open Question Scorer
 Este projeto tem como objetivo a construção de um sistema de pontuação automática de respostas abertas.
 
 # Technology Stack
