@@ -12,6 +12,7 @@ x-qa-common: &qa-common
     DATABASE_PASSWORD: ${DATABASE_PASSWORD:-supersecretpassword}
     DATABASE_HOST: ${DATABASE_HOST:-db}
     DATABASE_PORT: ${DATABASE_PORT:-5432}
+    TF_CPP_MIN_LOG_LEVEL: ${TF_CPP_MIN_LOG_LEVEL:-1}
     DEBUG: ${DEBUG:-1}
 
 services:

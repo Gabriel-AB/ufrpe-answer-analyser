@@ -9,3 +9,9 @@ Este projeto tem como objetivo a construção de um sistema de pontuação autom
 ## Front-end
 - JavaScript
 - Next.js
+
+
+```
+loaded_vectorize_layer_model = tf.keras.models.load_model(filepath)
+loaded_vectorize_layer = loaded_vectorize_layer_model.layers[0]
+```
