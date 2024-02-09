@@ -14,3 +14,6 @@ Este projeto tem como objetivo a construção de um sistema de pontuação autom
 ```
 docker compose up -d --build
 ```
+
+# Samples
+![Start Screen](images/sample.jpg)
