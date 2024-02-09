@@ -1,7 +1,7 @@
 # Open Question Scorer
 Este projeto tem como objetivo a construção de um sistema de pontuação automática de respostas abertas.
 
-# Technology Stack
+# Technology stack
 ## Back-end
 - Python
 - Django
@@ -10,8 +10,7 @@ Este projeto tem como objetivo a construção de um sistema de pontuação autom
 - JavaScript
 - Next.js
 
-
+# How to get up and running?
 ```
-loaded_vectorize_layer_model = tf.keras.models.load_model(filepath)
-loaded_vectorize_layer = loaded_vectorize_layer_model.layers[0]
+docker compose up -d --build
 ```
