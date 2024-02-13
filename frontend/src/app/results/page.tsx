@@ -2,6 +2,7 @@
 
 import { QA, getCookies } from '@/actions/question-cookies';
 import Card from '@/components/card'
+import Link from 'next/link';
 import React from 'react'
 
 type Analysis = {
@@ -42,6 +43,9 @@ export default async function Page() {
           {score}
         </span>
       </div>
+      <Link href='/' className='bg-neutral-100 rounded-lg py-2 px-4 border border-neutral-300 shadow-lg shadow-neutral-400 hover:bg-neutral-200 active:bg-neutral-300 active:translate-y-px dark:shadow-neutral-950 dark:bg-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 dark:border-neutral-900'>
+        Voltar
+      </Link>
     </>
   )
 }
