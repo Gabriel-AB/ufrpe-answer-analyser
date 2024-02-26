@@ -1,5 +1,5 @@
 # Open Question Scorer
-Este projeto tem como objetivo a construção de um sistema de pontuação automática de respostas abertas.
+This project aimed to build a full automated open question scorer for short answers.
 
 # Technology stack
 ## Back-end
